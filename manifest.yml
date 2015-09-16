@@ -1,0 +1,9 @@
+---
+applications:
+- name: uservices-spring-boot
+  memory: 1024M
+  instances: 1
+  host: uservices-spring-boot
+  domain: cfapps.io
+  services:
+  - mysql
