@@ -1,9 +1,8 @@
-package com.nwade.uservices.projects;
+package com.nwade.uservices.allocations;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nwade.uservices.schema.TestDataSource;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,10 +24,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = {ProjectsTestApp.class})
+@SpringApplicationConfiguration(classes = App.class)
 @WebAppConfiguration
-public class ProjectControllerTest {
-
+public class AllocationControllerTest {
     private MockMvc mockMvc;
 
     @Autowired
@@ -39,42 +37,42 @@ public class ProjectControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        TestDataSource.cleanWithFixtures(dataSource);
+        TestDataSource.cleanWithFixtures(this.dataSource);
+
         mockMvc = MockMvcBuilders.webAppContextSetup(applicationContext).build();
     }
 
     @Test
     public void testCreate() throws Exception {
-        String json = "{\"accountId\":1,\"name\":\"aProject\"}";
+        String json = "{\"projectId\":2,\"userId\":1,\"firstDay\":\"2015-05-17\",\"lastDay\":\"2015-05-26\"}"; // project and user from fixtures
 
         mockMvc.perform(
-                post("/projects")
-                        .content(json)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
+                post("/allocations")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json))
                 .andExpect(mvcResult -> {
-                    Project actual = new ObjectMapper().readValue(
-                            mvcResult.getResponse().getContentAsString(), Project.class);
-                    assertEquals(actual.getAccountId(), 1);
-                    assertEquals(actual.getName(), "aProject");
-                })
-                .andReturn();
+                    Allocation actual = new ObjectMapper()
+                            .readValue(mvcResult.getResponse().getContentAsString(), Allocation.class);
+                    assertEquals(2, actual.getProjectId());
+                    assertEquals(1, actual.getUserId());
+                }).andReturn();
     }
 
     @Test
     public void testList() throws Exception {
         mockMvc.perform(
-                get("/projects")
-                        .accept(MediaType.APPLICATION_JSON)
-                        .param("accountId", "1"))
+                get("/allocations")
+                        .param("projectId", "1")
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(mvcResult -> {
-                    List<Project> projects = new ObjectMapper().readValue(
-                            mvcResult.getResponse().getContentAsString(), new TypeReference<List<Project>>() {
+                    List<Allocation> allocations = new ObjectMapper().readValue(
+                            mvcResult.getResponse().getContentAsString(),
+                            new TypeReference<List<Allocation>>() {
                             });
-                    Assert.assertEquals(2, projects.size());
-                    assertEquals("Flagship", projects.get(0).getName());
-                    assertEquals("Hovercraft", projects.get(1).getName());
+                    Allocation allocation = allocations.get(0);
+                    assertEquals(1, allocation.getProjectId());
+                    assertEquals(1, allocation.getUserId());
                 });
     }
 }

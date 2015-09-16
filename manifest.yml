@@ -1,9 +1,37 @@
 ---
 applications:
-- name: uservices-spring-boot
-  memory: 1024M
+- name: allocations
+  path: services/allocations/target/allocations-1.0-SNAPSHOT.jar
+  memory: 256M
   instances: 1
-  host: uservices-spring-boot
+  host: allocations-uservices-sb
+  domain: cfapps.io
+  services:
+  - mysql
+
+- name: backlog
+  path: services/backlog/target/backlog-1.0-SNAPSHOT.jar
+  memory: 256M
+  instances: 1
+  host: backlog-uservices-sb
+  domain: cfapps.io
+  services:
+  - mysql
+
+- name: registration
+  path: services/registration/target/registration-1.0-SNAPSHOT.jar
+  memory: 256M
+  instances: 1
+  host: registration-uservices-sb
+  domain: cfapps.io
+  services:
+  - mysql
+
+- name: timesheets
+  path: services/timesheets/target/timesheets-1.0-SNAPSHOT.jar
+  memory: 256M
+  instances: 1
+  host: timesheets-uservices-sb
   domain: cfapps.io
   services:
   - mysql

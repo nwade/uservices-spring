@@ -1,6 +1,6 @@
 package com.nwade.uservices.accounts;
 
-import com.nwade.uservices.TestDataSource;
+import com.nwade.uservices.schema.TestDataSource;
 import com.nwade.uservices.users.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;

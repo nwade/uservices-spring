@@ -1,6 +1,6 @@
 package com.nwade.uservices.accounts;
 
-import com.nwade.uservices.TestDataSource;
+import com.nwade.uservices.schema.TestDataSource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

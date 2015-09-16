@@ -1,6 +1,6 @@
 package com.nwade.uservices.projects;
 
-import com.nwade.uservices.TestDataSource;
+import com.nwade.uservices.schema.TestDataSource;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -22,11 +22,15 @@
     </parent>
 
     <modules>
-        <module>app</module>
+        <module>services/allocations</module>
+        <module>services/backlog</module>
+        <module>services/integration</module>
+        <module>services/timesheets</module>
+        <module>services/registration</module>
         <module>components/accounts</module>
+        <module>components/users</module>
         <module>components/projects</module>
         <module>components/schema</module>
-        <module>components/users</module>
     </modules>
 
     <dependencies>

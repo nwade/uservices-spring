@@ -1,7 +1,7 @@
 package com.nwade.uservices.accounts;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nwade.uservices.TestDataSource;
+import com.nwade.uservices.schema.TestDataSource;
 import com.nwade.uservices.users.User;
 import org.junit.Before;
 import org.junit.Test;
